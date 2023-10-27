@@ -23,15 +23,27 @@ class ContactForm(forms.ModelForm):
             }
         )
 
+        self.fields['description'].widget.attrs.update(
+            {
+                'placeholder': "Description"
+            }
+        )
+
     class Meta:
         model = models.Contact
-        fields = ("first_name", "last_name", "phone", "email")
+        fields = ("first_name", "last_name", "phone",
+                  "email", "description", "category",)
 
         # Doc widget: https://docs.djangoproject.com/en/4.2/ref/forms/widgets/
         widgets = {
             'email': forms.EmailInput(
                 attrs={
                     'placeholder': "Insert E-mail here"
+                }
+            ),
+            'phone': forms.TextInput(
+                attrs={
+                    'placeholder': "Phone Number"
                 }
             ),
         }
@@ -49,19 +61,10 @@ class ContactForm(forms.ModelForm):
             self.add_error("first_name", msg)
             self.add_error("last_name", msg)
 
-        self.add_error(
-            "first_name",
-            ValidationError(
-                "Mensagem de erro",
-                code="invalid",
-            )
-        )
-
         return super().clean()
 
     def clean_first_name(self):
         first_name = self.cleaned_data.get("first_name")
-        print("passei no clean do first name")
         if first_name == "ABC":
             self.add_error(
                 "first_name",
