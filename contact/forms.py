@@ -4,6 +4,14 @@ from . import models
 
 
 class ContactForm(forms.ModelForm):
+    picture = forms.ImageField(
+        widget=forms.FileInput(
+            attrs={
+                "accept": "image/*"
+            }
+        ),
+    )
+
     first_name = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -32,7 +40,9 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = models.Contact
         fields = ("first_name", "last_name", "phone",
-                  "email", "description", "category",)
+                  "email", "description", "category",
+                  "picture",
+                  )
 
         # Doc widget: https://docs.djangoproject.com/en/4.2/ref/forms/widgets/
         widgets = {
@@ -54,9 +64,9 @@ class ContactForm(forms.ModelForm):
 
         if first_name == last_name:
             msg = ValidationError(
-                    "First name and last name cannot be the same",
-                    code="invalid",
-                )
+                "First name and last name cannot be the same",
+                code="invalid",
+            )
 
             self.add_error("first_name", msg)
             self.add_error("last_name", msg)

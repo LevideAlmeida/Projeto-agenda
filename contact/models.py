@@ -14,8 +14,8 @@ from django.contrib.auth.models import User
 # owner (foreign key)
 
 class Category(models.Model):
+    # Meta doc for you to test: https://docs.djangoproject.com/pt-br/4.2/ref/models/options/
     class Meta:
-        # Meta doc for you to test: https://docs.djangoproject.com/pt-br/4.2/ref/models/options/
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
