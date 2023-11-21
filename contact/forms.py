@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from . import models
 
@@ -86,3 +87,7 @@ class ContactForm(forms.ModelForm):
         # raise ValidationError("Não digite ABC nesse campo", code="invalid")
 
         return first_name
+
+
+class RegisterForm(UserCreationForm):
+    ...
