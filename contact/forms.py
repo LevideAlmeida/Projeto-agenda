@@ -13,6 +13,7 @@ class ContactForm(forms.ModelForm):
                 "accept": "image/*"
             }
         ),
+        required=False
     )
 
     first_name = forms.CharField(
